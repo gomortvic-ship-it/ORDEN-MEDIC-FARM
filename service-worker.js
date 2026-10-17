@@ -3,13 +3,13 @@
    conexión, usa la copia guardada. Las respuestas servidas desde caché llevan el encabezado
    X-From-Cache: 1 para que la app avise que usa una versión almacenada.
    Cambia CACHE_VERSION cuando publiques cambios de código para que los celulares se actualicen. */
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 const CACHE = 'orden-farmaceutico-' + CACHE_VERSION;
 const PRECACHE = [
   './', 'index.html', 'styles.css', 'app.js', 'pos.js', 'search.js', 'scanner.js',
   'import-excel.html', 'import-excel.js', 'import-ui.js', 'data.json', 'manifest.json',
   'icon-192.png', 'icon-512.png',
-  'vendor/zxing-library-0.21.3.min.js', 'vendor/xlsx-0.18.5.full.min.js'
+  'zxing-library-0.21.3.min.js', 'xlsx-0.18.5.full.min.js'
 ];
 
 self.addEventListener('install', (event) => {
