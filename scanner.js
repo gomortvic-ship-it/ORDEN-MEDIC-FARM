@@ -1,8 +1,8 @@
-/* scanner.js — lector de códigos de barras con la cámara (ZXing 0.21.3, copia local en vendor/).
+/* scanner.js — lector de códigos de barras con la cámara (ZXing 0.21.3, copia local en ).
    Requiere HTTPS (o localhost). La biblioteca se carga solo al abrir el lector. */
 (function (root) {
   'use strict';
-  var ZX_SRC = 'vendor/zxing-library-0.21.3.min.js';
+  var ZX_SRC = 'zxing-library-0.21.3.min.js';
   var controls = null, reader = null, active = false, loading = null, gen = 0;
 
   function loadLib() {
