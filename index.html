@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14284b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Orden Farmacéutico">
+  <title>Orden Farmacéutico</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <rect width="48" height="48" rx="12" fill="#ffffff" fill-opacity=".14"/>
+        <g transform="rotate(-45 24 24)">
+          <rect x="7" y="16" width="34" height="16" rx="8" fill="#fff"/>
+          <path d="M24 16h9a8 8 0 0 1 0 16h-9z" fill="#35b27b"/>
+        </g>
+      </svg>
+      <div>
+        <h1>ORDEN FARMACÉUTICO</h1>
+        <p>Localizador de medicamentos</p>
+      </div>
+    </div>
+    <span id="netStatus" class="chip" hidden></span>
+  </header>
+
+  <div id="updateBanner" class="banner banner-info" hidden>
+    Hay una versión nueva de la aplicación.
+    <button id="updateBtn" type="button">Actualizar</button>
+  </div>
+  <div id="cacheBanner" class="banner banner-warn" hidden></div>
+
+  <main class="container">
+    <section class="card search-card" aria-label="Búsqueda">
+      <label for="q" class="sr-only">Nombre, sustancia o código de barras</label>
+      <div class="search-row">
+        <div class="input-wrap">
+          <input id="q" type="search" inputmode="search" autocomplete="off" autocapitalize="off" spellcheck="false"
+                 placeholder="Nombre, sustancia o código…" aria-controls="suggestions" aria-expanded="false" enterkeyhint="search">
+          <button id="clearBtn" class="icon-btn" type="button" aria-label="Limpiar búsqueda" hidden>✕</button>
+        </div>
+        <button id="scanBtn" class="btn btn-primary" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 9v6M10 9v6M13 9v6M17 9v6"/></svg>
+          <span>Escanear</span>
+        </button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite">Cargando catálogo…</p>
+      <ul id="suggestions" class="suggestions" role="listbox" hidden></ul>
+    </section>
+
+    <div id="message" class="message" role="alert" hidden></div>
+    <section id="result" aria-live="polite"></section>
+  </main>
+
+  <footer class="app-footer">
+    <span id="catalogInfo"></span>
+    <a href="import-excel.html">Actualizar catálogo</a>
+  </footer>
+
+  <!-- Lector de códigos de barras -->
+  <div id="scanner" class="scanner" role="dialog" aria-modal="true" aria-label="Lector de código de barras" hidden>
+    <div class="scanner-box">
+      <div class="scanner-top">
+        <strong>Escanear código de barras</strong>
+        <button id="scanClose" class="btn btn-light" type="button">Cerrar</button>
+      </div>
+      <div class="video-wrap">
+        <video id="video" playsinline muted></video>
+        <div class="reticle" aria-hidden="true"></div>
+      </div>
+      <p id="scanMsg" class="scan-msg">Apunta la cámara al código de barras del producto.</p>
+      <form id="manualForm" class="manual">
+        <label for="manualCode">¿No lee? Escribe el código:</label>
+        <div class="search-row">
+          <input id="manualCode" inputmode="numeric" autocomplete="off" placeholder="Código de barras">
+          <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="pos.js"></script>
+  <script src="search.js"></script>
+  <script src="scanner.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

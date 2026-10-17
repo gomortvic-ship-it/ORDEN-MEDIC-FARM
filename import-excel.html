@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14284b">
+  <title>Importar Excel · Orden Farmacéutico</title>
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .step{padding:16px;margin-bottom:14px}
+    .step h2{margin:0 0 10px;font-size:1.05rem;color:var(--navy)}
+    .step p{margin:0 0 10px;color:var(--muted);font-size:.92rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+    .grid label{font-size:.82rem;font-weight:600;display:flex;flex-direction:column;gap:4px}
+    select,input[type=file]{font:inherit;padding:10px;border:2px solid var(--line);border-radius:10px;background:#fff;width:100%}
+    table{width:100%;border-collapse:collapse;font-size:.82rem}
+    .tbl{overflow:auto;border:1px solid var(--line);border-radius:10px}
+    th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+    th{background:#eef2f9;position:sticky;top:0}
+    .stat{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+    .stat span{background:#eef2f9;border-radius:10px;padding:6px 10px;font-size:.85rem}
+    .stat .bad{background:var(--red-bg);color:var(--red)} .stat .good{background:var(--green-bg);color:var(--green)} .stat .warn{background:var(--amber-bg);color:var(--amber)}
+    details{margin:8px 0} summary{cursor:pointer;font-weight:600}
+    .btn{width:100%}
+    ol.how{margin:0;padding-left:20px;font-size:.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand"><div><h1>IMPORTAR CATÁLOGO</h1><p>Excel → data.json (se procesa en tu navegador)</p></div></div>
+    <a href="index.html" style="color:#fff;font-size:.9rem">← Volver</a>
+  </header>
+  <main class="container">
+    <section class="card step">
+      <h2>1. Elige el archivo Excel</h2>
+      <p>El archivo no sale de tu dispositivo. Formatos: .xlsx, .xls, .xlsm, .csv.</p>
+      <input id="file" type="file" accept=".xlsx,.xls,.xlsm,.csv">
+      <div id="fileMsg" class="message" hidden></div>
+    </section>
+
+    <section id="s2" class="card step" hidden>
+      <h2>2. Hoja y columnas</h2>
+      <div class="grid">
+        <label>Hoja <select id="sheet"></select></label>
+        <label>Fila de encabezados <select id="headerRow"></select></label>
+        <label>Sal / sustancia (define la letra) <select id="m_sal"></select></label>
+        <label>Descripción (nombre comercial) <select id="m_descripcion"></select></label>
+        <label>Código de barras <select id="m_codigo"></select></label>
+        <label>Precio público <select id="m_precio"></select></label>
+        <label>Columna de orden (opcional) <select id="m_orden"></select></label>
+        <label>Criterio de orden maestro
+          <select id="orderMode">
+            <option value="sheet">Orden de las filas del Excel (recomendado)</option>
+            <option value="column">Columna de orden seleccionada</option>
+            <option value="sal">Ordenar alfabéticamente por Sal</option>
+          </select>
+        </label>
+      </div>
+      <p id="colWarn" class="message error" hidden></p>
+      <button id="process" class="btn btn-primary" type="button" style="margin-top:12px">Validar y generar catálogo</button>
+    </section>
+
+    <section id="s3" class="card step" hidden>
+      <h2>3. Revisión</h2>
+      <div id="stats" class="stat"></div>
+      <div id="details"></div>
+      <h2 style="margin-top:14px">Vista previa</h2>
+      <div class="tbl"><table id="preview"></table></div>
+    </section>
+
+    <section id="s4" class="card step" hidden>
+      <h2>4. Descargar y publicar</h2>
+      <button id="download" class="btn btn-primary" type="button">Descargar data.json</button>
+      <ol class="how" style="margin-top:12px">
+        <li>En tu repositorio de GitHub abre el archivo <b>data.json</b> → icono del lápiz o <b>Add file → Upload files</b>.</li>
+        <li>Sube el nuevo <b>data.json</b> (mismo nombre) y confirma con <b>Commit changes</b>.</li>
+        <li>Espera 1–2 minutos; al abrir la app con internet se descargará el catálogo nuevo.</li>
+      </ol>
+    </section>
+  </main>
+  <script src="vendor/xlsx-0.18.5.full.min.js"></script>
+  <script src="pos.js"></script>
+  <script src="search.js"></script>
+  <script src="import-excel.js"></script>
+  <script src="import-ui.js"></script>
+</body>
+</html>
